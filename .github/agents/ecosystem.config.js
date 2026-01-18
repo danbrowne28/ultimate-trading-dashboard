@@ -10,13 +10,20 @@
  * Documentation: https://pm2.keymetrics.io/docs/usage/application-declaration/
  */
 
+const path = require('path');
+const os = require('os');
+
+// Dynamic paths (works for any user)
+const HOME_DIR = process.env.HOME || os.homedir();
+const REPO_DIR = path.join(HOME_DIR, 'ultimate-trading-dashboard');
+
 module.exports = {
   apps: [
     {
       name: 'autonomous-agent',
       script: './.github/agents/autonomous-agent-ensemble.sh',
       interpreter: '/bin/bash',
-      cwd: '/home/ubuntu/ultimate-trading-dashboard',
+      cwd: REPO_DIR,
       
       // Execution mode
       instances: 1,
@@ -61,7 +68,7 @@ module.exports = {
       name: 'autonomous-agent-cron',
       script: './.github/agents/autonomous-agent-ensemble.sh',
       interpreter: '/bin/bash',
-      cwd: '/home/ubuntu/ultimate-trading-dashboard',
+      cwd: REPO_DIR,
       
       // Cron execution
       instances: 1,
